@@ -1,16 +1,27 @@
 import { useEffect } from "react";
-import classes from "./App.module.css";
 import { createPost } from "./utils/http";
+import classes from "./App.module.css";
+import Post from "./components/Post";
+import PostCard from "./components/PostCard";
 
 function App() {
   useEffect(() => {
     const graphqlQuery = { query: "{ hello }" };
     (async () => {
       const data = await createPost(graphqlQuery);
-      console.log(data.data);
+      console.log(data ? data.data : "ops error");
     })();
   });
-  return <h1 className={classes.center}>hello world</h1>;
+  return (
+    <div className={classes.container}>
+      <PostCard>
+        <Post />
+      </PostCard>
+      <PostCard>
+        <Post />
+      </PostCard>
+    </div>
+  );
 }
 
 export default App;
