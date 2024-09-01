@@ -1,9 +1,9 @@
 import axios from "axios";
-import { Post } from "./types";
+import { PostType } from "./types";
 
 const URL = "http://localhost:4000/graphql";
 
-export async function createPost(data: Post) {
+export async function createPost(data: PostType ) {
   const queryData = {
     query: `mutation {
       createPost(data:{
@@ -59,4 +59,24 @@ export async function getPosts() {
   }
 
   return res.data;
+}
+
+export async function getPost(_id:string){
+  const queryData = {
+    query:`` 
+  };
+  const res = await axios.post(URL, queryData);
+
+  if (res.status !== 200) {
+    throw Error("the server work, and it sent an error");
+  }
+
+  const resData = res.data;
+  // check if the coming back data has errors
+  if (resData.errors) {
+    throw Error("this query doesn't exist in the backend");
+  }
+
+  return res.data;
+ 
 }

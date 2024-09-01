@@ -1,17 +1,21 @@
 import classes from "./Post.module.css";
+import { PostType } from "../utils/types"
+type props = {
+  postData : PostType;
+}
+const Post = ({postData}:props) => {
 
-const Post = () => {
+  const {content,title,author} = postData
+  
   return (
     <div className={classes.card}>
-      <h1>Title</h1>
-      <span>August 12, 2024</span>
-      <p>
-        This blog is the official source for the updates from the React team.
-        Anything important, including release notes or deprecation notices, will
-        be posted here first.
+      <h1>{title}</h1>
+        <span>August 12, 2024</span>
+        <p>
+        {content}
       </p>
-      <h2>By: Mertda</h2>
-    </div>
+        <h2>By: {author}</h2>
+      </div>
   );
 };
 

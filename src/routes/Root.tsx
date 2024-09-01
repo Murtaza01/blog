@@ -1,12 +1,13 @@
-
 import { createPost, getPosts } from "../utils/http";
 import classes from "./Root.module.css";
 import Post from "../components/Post";
 import { useQuery } from "@tanstack/react-query";
-import { postData } from "../utils/types";
+import { PostData } from "../utils/types";
 import { Empty } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import {  Spin } from "antd";
+import { Link } from "react-router-dom";
+import { Key } from "react";
 
 function Root() {
   const { data, isError, isPending } = useQuery({
@@ -18,7 +19,7 @@ function Root() {
     return (
       <div className={classes.center}>
         <Spin indicator={<LoadingOutlined spin style={{ fontSize: 64 }} />}/>
-      </div>
+        </div>
     );
   }
 
@@ -26,18 +27,19 @@ function Root() {
     return (
       <div className={classes.center}>
         <Empty />
-      </div>
+        </div>
     );
   }
 
-  const posts: postData = data;
-  console.log(posts.data.getPosts);
+  const postData: PostData = data;
 
+  const posts = postData.data.getPosts
+  
   async function handleClick() {
     const data = {
-      content: "another ",
-      title: "one",
-      author: "from frontend",
+      content: "this is very new ",
+      title: "this is a new title",
+      author: "gay",
     };
     const res = await createPost(data);
 
@@ -45,10 +47,14 @@ function Root() {
   }
   return (
     <div className={classes.container}>
-      <Post />
-      <Post />
-      <button onClick={handleClick}>Add new Blog</button>
-    </div>
+      {posts.map((postData)=>{
+        return <Link to={`post/${postData._id}`} key={postData._id as Key}>
+          <Post postData={postData}/>
+          </Link>
+      })}
+        <button onClick={handleClick}>Add new Blog</button>
+
+      </div>
   );
 }
 

@@ -1,12 +1,12 @@
-export type Post = {
+export type PostType = {
   author: String;
   _id?: String;
   title: String;
   content: String;
 };
 
-export type postData = {
+export type PostData = {
   data: {
-    getPosts: [Post];
+    getPosts: [PostType];
   };
 };
