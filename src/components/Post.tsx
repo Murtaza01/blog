@@ -1,6 +1,8 @@
+import classes from "./Post.module.css";
+
 const Post = () => {
   return (
-    <div>
+    <div className={classes.card}>
       <h1>Title</h1>
       <span>August 12, 2024</span>
       <p>
