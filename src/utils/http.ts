@@ -1,5 +1,6 @@
 import axios from "axios";
 import { PostType } from "./types";
+import { Params } from "react-router-dom";
 
 const URL = "http://localhost:4000/graphql";
 
@@ -61,9 +62,16 @@ export async function getPosts() {
   return res.data;
 }
 
-export async function getPost(_id:string){
+export async function getPost({postId}:Params){
   const queryData = {
-    query:`` 
+    query:`{
+   getPost(id:"${postId}"){
+    author
+    title
+    content
+    _id
+  }
+}` 
   };
   const res = await axios.post(URL, queryData);
 
@@ -76,6 +84,7 @@ export async function getPost(_id:string){
   if (resData.errors) {
     throw Error("this query doesn't exist in the backend");
   }
+
 
   return res.data;
  
