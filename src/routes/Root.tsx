@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PostData } from "../utils/types";
 import { Empty } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-import {  Spin } from "antd";
+import { Spin } from "antd";
 import { Link } from "react-router-dom";
 import { Key } from "react";
 
@@ -18,8 +18,8 @@ function Root() {
   if (isPending) {
     return (
       <div className={classes.center}>
-        <Spin indicator={<LoadingOutlined spin style={{ fontSize: 64 }} />}/>
-        </div>
+        <Spin indicator={<LoadingOutlined spin style={{ fontSize: 64 }} />} />
+      </div>
     );
   }
 
@@ -27,14 +27,14 @@ function Root() {
     return (
       <div className={classes.center}>
         <Empty />
-        </div>
+      </div>
     );
   }
 
   const postData: PostData = data;
 
-  const posts = postData.data.getPosts
-  
+  const posts = postData.data.getPosts;
+
   async function handleClick() {
     const data = {
       content: "this is very new ",
@@ -47,14 +47,15 @@ function Root() {
   }
   return (
     <div className={classes.container}>
-      {posts.map((postData)=>{
-        return <Link to={`post/${postData._id}`} key={postData._id as Key}>
-          <Post postData={postData}/>
+      {posts.map((postData) => {
+        return (
+          <Link to={`post/${postData._id}`} key={postData._id as Key}>
+            <Post postData={postData} />
           </Link>
+        );
       })}
-        <button onClick={handleClick}>Add new Blog</button>
-
-      </div>
+      <button onClick={handleClick}>Add new Blog</button>
+    </div>
   );
 }
 
